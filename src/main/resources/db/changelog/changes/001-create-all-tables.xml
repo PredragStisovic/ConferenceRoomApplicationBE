@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="korisnici" author="predrag">
+        <createTable tableName="korisnici">
+            <column name="korisnik_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sifra" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ime" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prezime" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(150)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="uloga" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="sale" author="predrag">
+        <createTable tableName="sale">
+            <column name="sala_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="naziv" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kapacitet" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ================= TIP TERMINA ================= -->
+    <changeSet id="3-tip-termina" author="predrag">
+        <createTable tableName="tip_termina">
+            <column name="tip_termina_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="naziv_tipa" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="termini" author="predrag">
+        <createTable tableName="termini">
+            <column name="termin_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="datum_vreme_pocetka" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_vreme_kraja" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="svrha" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sala_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zahtevao_korisnik_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="odobrio_korisnik_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tip_termina_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_termin_sala" tableName="termini">
+            <column name="sala_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_termin_zahtevao" tableName="termini">
+            <column name="zahtevao_korisnik_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_termin_odobrio" tableName="termini">
+            <column name="odobrio_korisnik_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="termini" baseColumnNames="sala_id"
+                                 referencedTableName="sale" referencedColumnNames="sala_id"
+                                 constraintName="fk_termin_sala"/>
+
+        <addForeignKeyConstraint baseTableName="termini" baseColumnNames="zahtevao_korisnik_id"
+                                 referencedTableName="korisnici" referencedColumnNames="korisnik_id"
+                                 constraintName="fk_termin_zahtevao"/>
+
+        <addForeignKeyConstraint baseTableName="termini" baseColumnNames="odobrio_korisnik_id"
+                                 referencedTableName="korisnici" referencedColumnNames="korisnik_id"
+                                 constraintName="fk_termin_odobrio"/>
+
+        <addForeignKeyConstraint baseTableName="termini" baseColumnNames="tip_termina_id"
+                                 referencedTableName="tip_termina" referencedColumnNames="tip_termina_id"
+                                 constraintName="fk_termin_tip"/>
+    </changeSet>
+
+    <changeSet id="nedostupnost-sale" author="predrag">
+        <createTable tableName="nedostupnost_sale">
+            <column name="nedostupnost_sale_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="razlog" type="VARCHAR(255)"/>
+            <column name="datum_vreme_od" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_vreme_do" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sala_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_nedostupnost_sala" tableName="nedostupnost_sale">
+            <column name="sala_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="nedostupnost_sale" baseColumnNames="sala_id"
+                                 referencedTableName="sale" referencedColumnNames="sala_id"
+                                 constraintName="fk_nedostupnost_sala"/>
+    </changeSet>
+
+</databaseChangeLog>
