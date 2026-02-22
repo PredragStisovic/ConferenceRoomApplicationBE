@@ -4,6 +4,7 @@
  */
 package com.example.demo.service;
 
+import com.example.demo.dto.FilterSalaDto;
 import com.example.demo.dto.SalaDto;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface SalaService {
     SalaDto pronadjiSaluPoIdu(int salaId);
-    List<SalaDto> vratiSveSale();
+    List<SalaDto> filtrirajSale(FilterSalaDto dto);
     SalaDto kreirajSalu(SalaDto salaDto);
     void obrisiSalu(int salaId);
 }

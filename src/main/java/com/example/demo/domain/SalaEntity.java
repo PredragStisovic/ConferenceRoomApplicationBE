@@ -36,20 +36,20 @@ public class SalaEntity {
     private List<TerminEntity> termini = new ArrayList<>();
     
     @OneToMany(mappedBy = "sala")
-    private List<NedostupnostSale> nedostupnostSale = new ArrayList<>();
+    private List<NedostupnostSaleEntity> nedostupnostSale = new ArrayList<>();
 
-    public List<NedostupnostSale> getNedostupnostSale() {
-        return nedostupnostSale;
-    }
-
-    public void setNedostupnostSale(List<NedostupnostSale> nedostupnostSale) {
-        this.nedostupnostSale = nedostupnostSale;
-    }
 
     public SalaEntity(String naziv, int kapacitet) {
         this.naziv = naziv;
         this.kapacitet = kapacitet;
     }
+
+    public SalaEntity(long salaId, String naziv, int kapacitet) {
+        this.salaId = salaId;
+        this.naziv = naziv;
+        this.kapacitet = kapacitet;
+    }
+    
 
     public SalaEntity() {
     }
@@ -86,4 +86,11 @@ public class SalaEntity {
         this.termini = termini;
     }
     
+    public List<NedostupnostSaleEntity> getNedostupnostSale() {
+        return nedostupnostSale;
+    }
+
+    public void setNedostupnostSale(List<NedostupnostSaleEntity> nedostupnostSale) {
+        this.nedostupnostSale = nedostupnostSale;
+    }
 }

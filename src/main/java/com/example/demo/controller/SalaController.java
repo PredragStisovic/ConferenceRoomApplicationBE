@@ -4,6 +4,7 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.dto.FilterSalaDto;
 import com.example.demo.dto.SalaDto;
 import com.example.demo.service.SalaService;
 import java.util.List;
@@ -30,16 +31,16 @@ public class SalaController {
         this.salaService = salaService;
     }
     
-    @PostMapping("/findAll")
-    public ResponseEntity<List<SalaDto>> filtrirajSale(){
-        List<SalaDto> sale = this.salaService.vratiSveSale();
-        return ResponseEntity.status(HttpStatus.FOUND).body(sale);
+    @PostMapping("/filterAll")
+    public ResponseEntity<List<SalaDto>> filtrirajSale(@RequestBody FilterSalaDto body){
+        List<SalaDto> sale = this.salaService.filtrirajSale(body);
+        return ResponseEntity.status(HttpStatus.OK).body(sale);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<SalaDto> nadjiSaluPoIdu(@PathVariable("id") int salaId) {
         SalaDto sala = this.salaService.pronadjiSaluPoIdu(salaId);
-        return ResponseEntity.status(HttpStatus.FOUND).body(sala);
+        return ResponseEntity.status(HttpStatus.OK).body(sala);
     }
     
     @PostMapping("/create")

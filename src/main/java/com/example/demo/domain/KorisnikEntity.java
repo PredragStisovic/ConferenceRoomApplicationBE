@@ -130,4 +130,5 @@ public class KorisnikEntity {
         this.prezime = prezime;
     }
     
+    
 }

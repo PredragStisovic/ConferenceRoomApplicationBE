@@ -4,7 +4,8 @@
  */
 package com.example.demo.dto;
 
-import com.example.demo.domain.NedostupnostSale;
+import com.example.demo.domain.NedostupnostSaleEntity;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,16 +13,26 @@ import java.util.List;
  * @author predrag
  */
 public class SalaDto {
+    private long id;
+    
+    @NotNull
     private String naziv;
     
+    @NotNull
     private int kapacitet;
     
-    private List<NedostupnostSale> nedostupnostiSale;
+    private List<NedostupnostSaleEntity> nedostupnostiSale;
 
     public SalaDto() {
     }
 
     public SalaDto(String naziv, int kapacitet) {
+        this.naziv = naziv;
+        this.kapacitet = kapacitet;
+    }
+
+    public SalaDto(long id, String naziv, int kapacitet) {
+        this.id = id;
         this.naziv = naziv;
         this.kapacitet = kapacitet;
     }
@@ -44,13 +55,20 @@ public class SalaDto {
         this.kapacitet = kapacitet;
     }
 
-    public List<NedostupnostSale> getNedostupnostiSale() {
+    public List<NedostupnostSaleEntity> getNedostupnostiSale() {
         return nedostupnostiSale;
     }
 
-    public void setNedostupnostiSale(List<NedostupnostSale> nedostupnostiSale) {
+    public void setNedostupnostiSale(List<NedostupnostSaleEntity> nedostupnostiSale) {
         this.nedostupnostiSale = nedostupnostiSale;
     }
-    
-    
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

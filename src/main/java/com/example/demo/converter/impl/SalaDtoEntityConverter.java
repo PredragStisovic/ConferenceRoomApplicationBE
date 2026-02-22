@@ -18,7 +18,7 @@ public class SalaDtoEntityConverter implements Converter<SalaDto, SalaEntity>{
 
     @Override
     public SalaDto toDto(SalaEntity e) {
-        return new SalaDto(e.getNaziv(), e.getKapacitet());
+        return new SalaDto(e.getSalaId(), e.getNaziv(), e.getKapacitet());
     }
 
     @Override

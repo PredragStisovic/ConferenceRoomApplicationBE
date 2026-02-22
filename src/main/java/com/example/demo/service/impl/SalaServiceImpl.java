@@ -7,19 +7,24 @@ package com.example.demo.service.impl;
 import com.example.demo.converter.impl.SalaDtoEntityConverter;
 import com.example.demo.dao.SalaRepository;
 import com.example.demo.domain.SalaEntity;
+import com.example.demo.dto.FilterSalaDto;
 import com.example.demo.dto.SalaDto;
 import com.example.demo.service.SalaService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
  * @author predrag
  */
+@Service
 public class SalaServiceImpl implements SalaService{
     
     private final SalaRepository salaRepository;
@@ -42,10 +47,20 @@ public class SalaServiceImpl implements SalaService{
     }
 
     @Override
-    public List<SalaDto> vratiSveSale() {
-        return salaRepository.findAll()
-            .stream()
-            .map(this.converter::toDto)
+    public List<SalaDto> filtrirajSale(FilterSalaDto dto) {
+        int page = dto.getPage();
+        int size = dto.getSize();
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<SalaEntity> resultPage = salaRepository.findFiltered(
+            dto.getMinimalCapacity(),
+            dto.getName(),
+            pageable
+        );
+
+        return resultPage.stream()
+            .map(converter::toDto)
             .toList();
     }
 

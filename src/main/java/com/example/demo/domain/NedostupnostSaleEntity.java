@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "nedostupnost_sale")
-public class NedostupnostSale {
+public class NedostupnostSaleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "nedostupnost_sale_id")
@@ -39,14 +39,14 @@ public class NedostupnostSale {
     @JoinColumn(name = "sala_id", nullable = false)
     private SalaEntity sala;
 
-    public NedostupnostSale(String razlog, LocalDateTime datumVremeOd, LocalDateTime datumVremeDo, SalaEntity sala) {
+    public NedostupnostSaleEntity(String razlog, LocalDateTime datumVremeOd, LocalDateTime datumVremeDo, SalaEntity sala) {
         this.razlog = razlog;
         this.datumVremeOd = datumVremeOd;
         this.datumVremeDo = datumVremeDo;
         this.sala = sala;
     }
 
-    public NedostupnostSale() {
+    public NedostupnostSaleEntity() {
     }
 
     public long getNedostupnostSaleId() {
