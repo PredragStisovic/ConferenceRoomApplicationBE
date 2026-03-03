@@ -6,7 +6,9 @@ package com.example.demo.converter.impl;
 
 import com.example.demo.converter.Converter;
 import com.example.demo.domain.SalaEntity;
+import com.example.demo.dto.NedostupnostSaleDto;
 import com.example.demo.dto.SalaDto;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +20,22 @@ public class SalaDtoEntityConverter implements Converter<SalaDto, SalaEntity>{
 
     @Override
     public SalaDto toDto(SalaEntity e) {
-        return new SalaDto(e.getSalaId(), e.getNaziv(), e.getKapacitet());
+         List<NedostupnostSaleDto> nedostupnosti = e.getNedostupnostSale()
+        .stream()
+        .map(ns -> new NedostupnostSaleDto(
+                ns.getNedostupnostSaleId(),
+                ns.getRazlog(),
+                ns.getDatumVremeOd(),
+                ns.getDatumVremeDo()
+        ))
+        .toList();
+
+        return new SalaDto(
+                e.getSalaId(),
+                e.getNaziv(),
+                e.getKapacitet(),
+                nedostupnosti
+        );
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.example.demo.domain.SalaEntity;
 import com.example.demo.dto.FilterSalaDto;
 import com.example.demo.dto.SalaDto;
 import com.example.demo.service.SalaService;
+import jakarta.persistence.FetchType;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class SalaServiceImpl implements SalaService{
 
     @Override
     public SalaDto pronadjiSaluPoIdu(int salaId) {
-        Optional<SalaEntity> pronadjenaSala = salaRepository.findById(salaId);
+        Optional<SalaEntity> pronadjenaSala = salaRepository.findByIdWithNedostupnostSale(salaId);
         if(!pronadjenaSala.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ne postoji sala sa ovim ID-em");
         }

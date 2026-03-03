@@ -2,81 +2,60 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.demo.domain;
+package com.example.demo.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.example.demo.domain.KorisnikEntity;
+import com.example.demo.domain.SalaEntity;
+import com.example.demo.domain.TipTerminaEntity;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author predrag
  */
-@Entity
-@Table(name = "termini")
-public class TerminEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "termin_id")
+public class TerminDto {
     private long terminId;
-    
-    @Column(name = "datum_vreme_pocetka", nullable = false)
+    @NotNull
     private LocalDateTime datumVremePocetka;
-    
-    @Column(name = "datum_vreme_kraja", nullable = false)
+    @NotNull
     private LocalDateTime datumVremeKraja;
     
-    @Column(name = "datum_vreme_prijema_zahteva", nullable = false)
-    private LocalDateTime datumVremePrijemaZahteva = LocalDateTime.now();
-    
-    @Column(name = "datum_vreme_odobrenja_zahteva")
-    private LocalDateTime datumVremeOdobrenjaZahteva;
-    
-    @Column(nullable = false)
     private String naziv;
     
-    @Column(nullable = false)
     private String opis;
     
-   
-    @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
     private SalaEntity sala;
     
-    @ManyToOne
-    @JoinColumn(name = "zahtevao_korisnik_id", nullable = false)
     private KorisnikEntity zahtevaoKorisnik;
     
-    @ManyToOne
-    @JoinColumn(name = "odobrio_korisnik_id")
     private KorisnikEntity odobrioKorisnik;
     
-    @ManyToOne
-    @JoinColumn(name = "tip_termina_id", nullable = false)
     private TipTerminaEntity tipTermina;
     
-    public TerminEntity(LocalDateTime datumVremePocetka, LocalDateTime datumVremeKraja, String naziv, String opis, SalaEntity sala, KorisnikEntity zahtevaoKorisnik, KorisnikEntity odobrioKorisnik, TipTerminaEntity tipTermina) {
+    private LocalDateTime datumVremeOdobrenjaZahteva;
+
+    public TerminDto() {
+    }
+
+    public TerminDto(long terminId, LocalDateTime datumVremePocetka, LocalDateTime datumVremeKraja, String naziv, String opis, SalaEntity sala, KorisnikEntity zahtevaoKorisnik, KorisnikEntity odobrioKorisnik, TipTerminaEntity tipTermina) {
+        this.terminId = terminId;
         this.datumVremePocetka = datumVremePocetka;
         this.datumVremeKraja = datumVremeKraja;
-        this.sala = sala;
         this.naziv = naziv;
         this.opis = opis;
+        this.sala = sala;
         this.zahtevaoKorisnik = zahtevaoKorisnik;
         this.odobrioKorisnik = odobrioKorisnik;
         this.tipTermina = tipTermina;
     }
 
-    public TerminEntity() {
-    }
-
     public long getTerminId() {
         return terminId;
+    }
+
+    public void setTerminId(long terminId) {
+        this.terminId = terminId;
     }
 
     public LocalDateTime getDatumVremePocetka() {
@@ -93,22 +72,6 @@ public class TerminEntity {
 
     public void setDatumVremeKraja(LocalDateTime datumVremeKraja) {
         this.datumVremeKraja = datumVremeKraja;
-    }
-
-    public LocalDateTime getDatumVremePrijemaZahteva() {
-        return datumVremePrijemaZahteva;
-    }
-
-    public void setDatumVremePrijemaZahteva(LocalDateTime datumVremePrijemaZahteva) {
-        this.datumVremePrijemaZahteva = datumVremePrijemaZahteva;
-    }
-
-    public LocalDateTime getDatumVremeOdobrenjaZahteva() {
-        return datumVremeOdobrenjaZahteva;
-    }
-
-    public void setDatumVremeOdobrenjaZahteva(LocalDateTime datumVremeOdobrenjaZahteva) {
-        this.datumVremeOdobrenjaZahteva = datumVremeOdobrenjaZahteva;
     }
 
     public String getNaziv() {
@@ -157,6 +120,14 @@ public class TerminEntity {
 
     public void setTipTermina(TipTerminaEntity tipTermina) {
         this.tipTermina = tipTermina;
+    }
+
+    public LocalDateTime getDatumVremeOdobrenjaZahteva() {
+        return datumVremeOdobrenjaZahteva;
+    }
+
+    public void setDatumVremeOdobrenjaZahteva(LocalDateTime datumVremeOdobrenjaZahteva) {
+        this.datumVremeOdobrenjaZahteva = datumVremeOdobrenjaZahteva;
     }
     
 }

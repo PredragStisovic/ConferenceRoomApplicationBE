@@ -21,7 +21,7 @@ public class SalaDto {
     @NotNull
     private int kapacitet;
     
-    private List<NedostupnostSaleEntity> nedostupnostiSale;
+    private List<NedostupnostSaleDto> nedostupnostiSale;
 
     public SalaDto() {
     }
@@ -36,6 +36,15 @@ public class SalaDto {
         this.naziv = naziv;
         this.kapacitet = kapacitet;
     }
+
+    public SalaDto(long id, String naziv, int kapacitet, List<NedostupnostSaleDto> nedostupnostiSale) {
+        this.id = id;
+        this.naziv = naziv;
+        this.kapacitet = kapacitet;
+        this.nedostupnostiSale = nedostupnostiSale;
+    }
+    
+    
     
     
 
@@ -55,11 +64,11 @@ public class SalaDto {
         this.kapacitet = kapacitet;
     }
 
-    public List<NedostupnostSaleEntity> getNedostupnostiSale() {
+    public List<NedostupnostSaleDto> getNedostupnostiSale() {
         return nedostupnostiSale;
     }
 
-    public void setNedostupnostiSale(List<NedostupnostSaleEntity> nedostupnostiSale) {
+    public void setNedostupnostiSale(List<NedostupnostSaleDto> nedostupnostiSale) {
         this.nedostupnostiSale = nedostupnostiSale;
     }
 

@@ -73,9 +73,7 @@
             <column name="zahtevao_korisnik_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="odobrio_korisnik_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="odobrio_korisnik_id" type="BIGINT"></column>
             <column name="tip_termina_id" type="INT">
                 <constraints nullable="false"/>
             </column>

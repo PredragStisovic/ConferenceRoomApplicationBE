@@ -20,6 +20,9 @@ public interface SalaRepository extends JpaRepository<SalaEntity, Integer>{
         @Query("SELECT s FROM SalaEntity s WHERE s.salaId = ?1")
         Optional<SalaEntity> pronadjiPoIdu(int salaId);
         
+        @Query("SELECT s FROM SalaEntity s LEFT JOIN FETCH s.nedostupnostSale WHERE s.salaId = ?1")
+        Optional<SalaEntity> findByIdWithNedostupnostSale(int salaId);
+
         @Query("""
             SELECT s FROM SalaEntity s
             WHERE (:minimalCapacity IS NULL OR s.kapacitet >= :minimalCapacity)
