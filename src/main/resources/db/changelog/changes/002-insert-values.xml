@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert-admin" author="predrag">
+        <insert tableName="korisnici">
+            <column name="ime" value="Admin"/>
+            <column name="prezime" value="Admin"/>
+            <column name="email" value="admin@admin.com"/>
+            <column name="sifra" value="$2a$10$IN/ZPKvDAaV6D.VNqv9y5uxBCx.0IMzlRcZWqMPe0LAenft2dvSUu"/>
+            <column name="uloga" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-tip-termina" author="predrag">
+        <insert tableName="tip_termina">
+            <column name="naziv_tipa" value="ISPIT"/>
+        </insert>
+        <insert tableName="tip_termina">
+            <column name="naziv_tipa" value="KOLOKVIJUM"/>
+        </insert>
+        <insert tableName="tip_termina">
+            <column name="naziv_tipa" value="PREDAVANJE"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

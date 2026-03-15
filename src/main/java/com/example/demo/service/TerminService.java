@@ -16,5 +16,6 @@ public interface TerminService {
     TerminDto createTermin(TerminDto dto);
     List<TerminDto> getAllTerminiBySalaId(int salaId);
     List<TerminDto> getAllNeodobreniTermini();
-    TerminDto approveTermin(int terminId, KorisnikEntity approvedBy);
+    TerminDto approveTermin(int terminId, int approvedById);
+    TerminDto removeTermin(int terminId);
 }

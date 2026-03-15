@@ -67,6 +67,12 @@ public class SalaServiceImpl implements SalaService{
 
     @Override
     public SalaDto kreirajSalu(SalaDto salaDto) {
+        if (salaDto.getNaziv() == null || salaDto.getNaziv().trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Naziv sale je obavezan");
+        }
+        if (salaDto.getKapacitet() < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Kapacitet mora biti najmanje 1");
+        }
         SalaEntity salaEntitetZaKreiranje = converter.toEntity(salaDto);
         SalaEntity kreiranaSala = salaRepository.save(salaEntitetZaKreiranje);
         return converter.toDto(kreiranaSala);

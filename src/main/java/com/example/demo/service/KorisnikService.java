@@ -5,6 +5,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.KorisnikDto;
+import com.example.demo.dto.PromeniSifruDto;
 
 /**
  *
@@ -12,4 +13,5 @@ import com.example.demo.dto.KorisnikDto;
  */
 public interface KorisnikService {
     public KorisnikDto findKorisnikById(int korisnikId);
+    public void promeniSifru(int korisnikId, PromeniSifruDto dto);
 }

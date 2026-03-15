@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -29,7 +30,7 @@ public class NedostupnostSaleController {
   
     
     @PostMapping()
-    public ResponseEntity<NedostupnostSaleDto> kreirajNedostupnostSale(@RequestBody NedostupnostSaleDto body){
+    public ResponseEntity<NedostupnostSaleDto> kreirajNedostupnostSale(@Valid @RequestBody NedostupnostSaleDto body){
         NedostupnostSaleDto kreiranaNedostupnostSale = this.service.kreirajNedostupnostSale(body);
         return ResponseEntity.status(HttpStatus.CREATED).body(kreiranaNedostupnostSale);
     }

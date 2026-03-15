@@ -4,9 +4,7 @@
  */
 package com.example.demo.dto;
 
-import com.example.demo.domain.KorisnikEntity;
-import com.example.demo.domain.SalaEntity;
-import com.example.demo.domain.TipTerminaEntity;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -20,34 +18,52 @@ public class TerminDto {
     private LocalDateTime datumVremePocetka;
     @NotNull
     private LocalDateTime datumVremeKraja;
-    
+
+    @NotBlank(message = "Naziv termina je obavezan")
     private String naziv;
-    
+
     private String opis;
-    
-    private SalaEntity sala;
-    
-    private KorisnikEntity zahtevaoKorisnik;
-    
-    private KorisnikEntity odobrioKorisnik;
-    
-    private TipTerminaEntity tipTermina;
-    
+
+    private int salaId;
+
+    private int zahtevaoKorisnikId;
+
+    private Integer odobrioKorisnikId;
+
+    private int tipTerminaId;
+
     private LocalDateTime datumVremeOdobrenjaZahteva;
+
+    private SalaDto sala;
+
+    private KorisnikDto zahtevaoKorisnik;
+
+    private TipTerminaDto tipTermina;
 
     public TerminDto() {
     }
 
-    public TerminDto(long terminId, LocalDateTime datumVremePocetka, LocalDateTime datumVremeKraja, String naziv, String opis, SalaEntity sala, KorisnikEntity zahtevaoKorisnik, KorisnikEntity odobrioKorisnik, TipTerminaEntity tipTermina) {
+    public TerminDto(long terminId, LocalDateTime datumVremePocetka, LocalDateTime datumVremeKraja, String naziv, String opis, int salaId, int zahtevaoKorisnikId, int odobrioKorisnikId, int tipTerminaId) {
         this.terminId = terminId;
         this.datumVremePocetka = datumVremePocetka;
         this.datumVremeKraja = datumVremeKraja;
         this.naziv = naziv;
         this.opis = opis;
-        this.sala = sala;
-        this.zahtevaoKorisnik = zahtevaoKorisnik;
-        this.odobrioKorisnik = odobrioKorisnik;
-        this.tipTermina = tipTermina;
+        this.salaId = salaId;
+        this.zahtevaoKorisnikId = zahtevaoKorisnikId;
+        this.odobrioKorisnikId = odobrioKorisnikId;
+        this.tipTerminaId = tipTerminaId;
+    }
+    
+    public TerminDto(long terminId, LocalDateTime datumVremePocetka, LocalDateTime datumVremeKraja, String naziv, String opis, int salaId, int zahtevaoKorisnikId, int tipTerminaId) {
+        this.terminId = terminId;
+        this.datumVremePocetka = datumVremePocetka;
+        this.datumVremeKraja = datumVremeKraja;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.salaId = salaId;
+        this.zahtevaoKorisnikId = zahtevaoKorisnikId;
+        this.tipTerminaId = tipTerminaId;
     }
 
     public long getTerminId() {
@@ -90,37 +106,38 @@ public class TerminDto {
         this.opis = opis;
     }
 
-    public SalaEntity getSala() {
-        return sala;
+    public int getSalaId() {
+        return salaId;
     }
 
-    public void setSala(SalaEntity sala) {
-        this.sala = sala;
+    public void setSalaId(int salaId) {
+        this.salaId = salaId;
     }
 
-    public KorisnikEntity getZahtevaoKorisnik() {
-        return zahtevaoKorisnik;
+    public int getZahtevaoKorisnikId() {
+        return zahtevaoKorisnikId;
     }
 
-    public void setZahtevaoKorisnik(KorisnikEntity zahtevaoKorisnik) {
-        this.zahtevaoKorisnik = zahtevaoKorisnik;
+    public void setZahtevaoKorisnikId(int zahtevaoKorisnikId) {
+        this.zahtevaoKorisnikId = zahtevaoKorisnikId;
     }
 
-    public KorisnikEntity getOdobrioKorisnik() {
-        return odobrioKorisnik;
+    public Integer getOdobrioKorisnikId() {
+        return odobrioKorisnikId;
     }
 
-    public void setOdobrioKorisnik(KorisnikEntity odobrioKorisnik) {
-        this.odobrioKorisnik = odobrioKorisnik;
+    public void setOdobrioKorisnikId(int odobrioKorisnikId) {
+        this.odobrioKorisnikId = odobrioKorisnikId;
     }
 
-    public TipTerminaEntity getTipTermina() {
-        return tipTermina;
+    public int getTipTerminaId() {
+        return tipTerminaId;
     }
 
-    public void setTipTermina(TipTerminaEntity tipTermina) {
-        this.tipTermina = tipTermina;
+    public void setTipTerminaId(int tipTerminaId) {
+        this.tipTerminaId = tipTerminaId;
     }
+
 
     public LocalDateTime getDatumVremeOdobrenjaZahteva() {
         return datumVremeOdobrenjaZahteva;
@@ -129,5 +146,29 @@ public class TerminDto {
     public void setDatumVremeOdobrenjaZahteva(LocalDateTime datumVremeOdobrenjaZahteva) {
         this.datumVremeOdobrenjaZahteva = datumVremeOdobrenjaZahteva;
     }
-    
+
+    public SalaDto getSala() {
+        return sala;
+    }
+
+    public void setSala(SalaDto sala) {
+        this.sala = sala;
+    }
+
+    public KorisnikDto getZahtevaoKorisnik() {
+        return zahtevaoKorisnik;
+    }
+
+    public void setZahtevaoKorisnik(KorisnikDto zahtevaoKorisnik) {
+        this.zahtevaoKorisnik = zahtevaoKorisnik;
+    }
+
+    public TipTerminaDto getTipTermina() {
+        return tipTermina;
+    }
+
+    public void setTipTermina(TipTerminaDto tipTermina) {
+        this.tipTermina = tipTermina;
+    }
+
 }

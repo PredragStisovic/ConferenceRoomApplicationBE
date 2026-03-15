@@ -4,6 +4,7 @@
  */
 package com.example.demo.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class NedostupnostSaleDto {
     @NotNull
     private long salaId;
     
-    @NotNull
+    @NotBlank(message = "Razlog nedostupnosti je obavezan")
     private String razlog;
     
     @NotNull

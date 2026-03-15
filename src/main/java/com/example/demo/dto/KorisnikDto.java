@@ -35,14 +35,17 @@ public class KorisnikDto {
         this.prezime = prezime;
         this.uloga = uloga;
     }
-    
-    public KorisnikDto(String email, String token, String ime, String prezime, UlogaEnum uloga) {
-        this.token = token;
+
+    public KorisnikDto(long korisnikId, String email, String ime, String prezime, UlogaEnum uloga, String token) {
+        this.korisnikId = korisnikId;
         this.email = email;
         this.ime = ime;
         this.prezime = prezime;
         this.uloga = uloga;
+        this.token = token;
     }
+    
+    
 
     public KorisnikDto() {
     }

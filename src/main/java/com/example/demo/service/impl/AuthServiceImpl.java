@@ -9,6 +9,7 @@ import com.example.demo.converter.impl.AuthDtoEntityConverter;
 import com.example.demo.converter.impl.KorisnikDtoEntityConverter;
 import com.example.demo.dao.KorisnikRepository;
 import com.example.demo.domain.KorisnikEntity;
+import com.example.demo.domain.UlogaEnum;
 import com.example.demo.dto.KorisnikDto;
 import com.example.demo.dto.PrijavaDto;
 import com.example.demo.dto.RegistracijaDto;
@@ -51,16 +52,29 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public KorisnikDto registrujKorisnika(RegistracijaDto dto) {
+        if (dto.getIme() == null || dto.getIme().trim().length() < 2) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ime mora imati najmanje 2 karaktera");
+        }
+        if (dto.getPrezime() == null || dto.getPrezime().trim().length() < 2) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Prezime mora imati najmanje 2 karaktera");
+        }
+        if (dto.getSifra() == null || dto.getSifra().length() < 8) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Šifra mora imati minimum 8 karaktera");
+        }
+
+        dto.setIme(dto.getIme().trim());
+        dto.setPrezime(dto.getPrezime().trim());
+
         Optional<KorisnikEntity> postojeciKorisnik = korisnikRepository.nadjiPoMejlu(dto.getEmail());
         
         if(postojeciKorisnik.isPresent()){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vec postoji korisnik sa ovom email adresom");
         }
-        
+
         KorisnikEntity korisnik = authConverter.toEntity(dto);
         korisnik.setSifra(passwordEncoder.encode(dto.getSifra()));
         KorisnikEntity registrovanKorisnik = korisnikRepository.save(korisnik);
-        
+
         return korisnikConverter.toDto(registrovanKorisnik);
     }
 
@@ -74,7 +88,7 @@ public class AuthServiceImpl implements AuthService{
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ne postoji korisnik sa ovim korisničkim imenom ili šifrom");
             }
             String token = JwtConfig.generisiToken(String.valueOf(korisnik.getKorisnikId()));
-            KorisnikDto dtoToReturn = new KorisnikDto(korisnik.getEmail(), token, korisnik.getIme(), korisnik.getPrezime(), korisnik.getUloga());
+            KorisnikDto dtoToReturn = new KorisnikDto(korisnik.getKorisnikId(), korisnik.getEmail(), korisnik.getIme(), korisnik.getPrezime(), korisnik.getUloga(), token);
             return dtoToReturn;
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ne postoji korisnik sa ovim korisničkim imenom ili šifrom");

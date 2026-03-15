@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -33,7 +36,7 @@ public class TerminController {
     }
 
     @PostMapping()
-    public ResponseEntity<TerminDto> createTermin(@RequestBody TerminDto dto) {
+    public ResponseEntity<TerminDto> createTermin(@Valid @RequestBody TerminDto dto) {
         TerminDto created = terminService.createTermin(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
@@ -51,11 +54,21 @@ public class TerminController {
     }
 
     @PutMapping("/approve-termin/{terminId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<TerminDto> approveTermin(
             @PathVariable int terminId,
             @RequestBody TerminDto body) {
-        KorisnikEntity approvedBy = body.getOdobrioKorisnik();
-        TerminDto approvedTermin = terminService.approveTermin(terminId, approvedBy);
+        int approvedById = body.getOdobrioKorisnikId();
+        TerminDto approvedTermin = terminService.approveTermin(terminId, approvedById);
         return ResponseEntity.ok(approvedTermin);
+    }
+    
+    @DeleteMapping("/remove-termin/{terminId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<TerminDto> removeTermin(
+            @PathVariable int terminId
+    ){
+        TerminDto removedTermin = terminService.removeTermin(terminId);
+        return ResponseEntity.ok(removedTermin);
     }
 }

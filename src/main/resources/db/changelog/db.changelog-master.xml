@@ -5,6 +5,7 @@
      http://www.liquibase.org/xml/ns/dbchangelog
      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <include file="db/changelog/changes/001-all-tables.xml"/>
+    <include file="db/changelog/changes/001-create-all-tables.xml"/>
+    <include file="db/changelog/changes/002-insert-values.xml"/>
 
 </databaseChangeLog>

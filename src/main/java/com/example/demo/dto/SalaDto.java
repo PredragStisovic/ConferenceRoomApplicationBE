@@ -5,6 +5,8 @@
 package com.example.demo.dto;
 
 import com.example.demo.domain.NedostupnostSaleEntity;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
@@ -15,10 +17,10 @@ import java.util.List;
 public class SalaDto {
     private long id;
     
-    @NotNull
+    @NotBlank(message = "Naziv sale je obavezan")
     private String naziv;
-    
-    @NotNull
+
+    @Min(value = 1, message = "Kapacitet mora biti najmanje 1")
     private int kapacitet;
     
     private List<NedostupnostSaleDto> nedostupnostiSale;

@@ -15,10 +15,10 @@ import org.springframework.data.jpa.repository.Query;
  * @author predrag
  */
 public interface TerminRepository extends JpaRepository<TerminEntity, Integer>{
-    @Query("SELECT * FROM termin t LEFT JOIN sala s ON t.salaId = s.id WHERE t.salaId = ?1")
-    Optional<List<TerminEntity>> findAllTerminiBySalaId(int salaId);
+    @Query("SELECT t FROM TerminEntity t WHERE t.sala.salaId = ?1")
+    List<TerminEntity> findAllTerminiBySalaId(int salaId);
     
-    @Query("SELECT * FROM termin t WHERE t.odobrio_korisnik_id IS NULL")
-    Optional<List<TerminEntity>> findAllNeodobreniTermini();
+    @Query("SELECT t FROM TerminEntity t LEFT JOIN FETCH t.tipTermina LEFT JOIN FETCH t.sala LEFT JOIN FETCH t.zahtevaoKorisnik WHERE t.odobrioKorisnik IS NULL")
+    List<TerminEntity> findAllNeodobreniTermini();
     
 }

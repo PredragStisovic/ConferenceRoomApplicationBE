@@ -64,7 +64,14 @@
             <column name="datum_vreme_kraja" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="svrha" type="VARCHAR(255)">
+            <column name="datum_vreme_prijema_zahteva" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_vreme_odobrenja_zahteva" type="DATETIME"/>
+            <column name="naziv" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opis" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="sala_id" type="BIGINT">
